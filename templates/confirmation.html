@@ -1,0 +1,52 @@
+{% entends "base.html" %}
+{% block title %} Reservation Confirmed — Panther Hotel {% endblock %}
+
+{% block content %}
+
+<section class = "page_hero">
+    <div class = "welcome_bg">
+        <div class = "hero_orb hero_orb_1"></div>
+        <div class = "hero_grid"></div> 
+    </div>
+    <div class = "page_hero_content">
+        <span class = "welcome_eyebrow"> Reservation #{{ booking.id }}</span>
+        <h1 class = "page_title"> Confirmed </h1>
+    </div>
+</section>
+
+<section class = "confirmation_section">
+    <div class = "confirm_card">
+        <div class = "confirm_icon"> ◆ </div>
+        <h2 clas = "confirm_heading"> Dear {{ booking.guest_name }}, </h2>
+        <p class = "confirm_message">
+            Thank you for choosing the Panther Hotel. We look foward to welcoming you.
+            Your reservation details are confimed below.
+        </p>
+        <div class = "confirm_details">
+            <div class = "confirm_row">
+                <span class = "confirm_label"> Room </span>
+                <span class = "confirm_value"> {{ booking.roomType }} </span>
+            </div>
+            <div class = "confirm_row">
+                <span class = "confirm_label"> Check-In Date </span>
+                <span class = "confirm_value confirm_date"> {{ booking.check_in }} </span>
+            </div>
+            <div class = "confirm_row">
+                <span class = "confirm_label"> Check-Out Date </span>
+                <span class = "confirm_value confirm_date"> {{ booking.check_out }} </span>
+            </div>
+            <div class = "confirm_row">
+                <span class = "confirm_label"> Duration </span>
+                <span class = "confirm_value"> {{ booking.nights }} night{% if booking.nights != 1 %}s{% endif %}</span>
+            </div>
+        </div>
+            <p class = "confirm_footer_note">
+                A confirmation has been noted under booking reference <strong> #{{ booking.id }} </strong>. <br>
+                We will be ready for you upon arrival.
+            </p>
+            <div class = "confirm_actions">
+                <a href = "/reservation" class = "btn_primary"> Make Another Reservation </a>
+                <a href = "/" class = "btn_ghost"> Return Home </a>
+            </div>
+    </div>
+</section>

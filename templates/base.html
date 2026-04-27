@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> {% block title %} Panther Hotel {% endblock %}</title>
+        <link rel = "preconnect" href = "https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" href = "/static/css/main.css">
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body>
+        <nav class = "nav">
+            <a href = "/" class = "nav-logo">
+                <span class = "logo_icon"> ◆ </span>
+                <span class = "logo_text"> PANTHER </span>
+            </a>
+            <div class = "nav_links">
+                <a href = "/" class = "nav_link {% if request.path == '/' %} active {% endif %}"> Home </a>
+                <a href="/reservation" class="nav-link {% if request.path == '/reservation' %}active{% endif %}"> Book a Room </a>
+                <a href="/manager" class="nav-link {% if request.path == '/manager' %}active{% endif %}"> Manager </a>
+            </div>
+            <button class = "nav_toggle" id = "toggleMenu"> ☰ </button>
+        </nav>
+        <div class = "mobile_menu" id = "mobileMenu">
+            <a href = "/" class = "mobile_link"> Home </a>
+            <a href = "/reservation" class = "mobile_link"> Home </a>
+            <a href = "/manager" class = "mobile_link"> Manager </a>
+        </div>
+
+        <main> {% block content %}{% endblock %} </main>
+
+        <footer class = "footer"> 
+            <div class = "footer_inner">
+                <div class = "footer_brand">
+                    <span class = "logo_icon"> ◆ </span>
+                    <span class = "logo_text"> PANTHER HOTEL </span>
+                    <p class = "footer_tagline"> Where darkness meets luxury. </p>
+                </div>
+                <div class = "footer_cols">
+                    <div class = "footer_col">
+                        <h4> Navigate </h4>
+                        <a href = "/"> Home </a>
+                        <a href = "/reservation"> Book a Room </a>
+                        <a href = "/manager"> Manager </a>
+                    </div>
+                    <div class = "footer_col">
+                        <h4> Contact </h4>
+                        <p> 1 Panther Plaza <br> New York, NY 10001 </p>
+                        <p>+1 (212) 000-0000 </p>
+                    </div>
+                </div>
+            </div>
+            <div class = "footer_bottom">
+                <p> © 2025 Panther Hotel. All rights reserved. </p>
+            </div>
+        </footer>
+
+        <script src = "/static/js/main.js"></script>
+        {% block extra_js %}{% endblock %}
+    </body>  
+</html>

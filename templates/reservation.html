@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %} Book a Room — Panther Hotel {% endblock %}
+
+{% block content %}
+<section class = "page_hero">
+    <div class = "welcome_bg">
+        <div class = "hero_orb hero_orb_1"></div>
+        <div class = "hero_grid"></div>
+    </div>
+    <div class = "page_hero_content">
+        <span class = "welcome_eyebrow"> Accommondations </span>
+        <h1 class = "page_title"> Make a Resevation </h1>
+    </div>
+</section>
+
+<section class = "reservation_section">
+    <div class = "res-card">
+        <form id = "reservaionForm" onsubmit = "submitReservation(event)">
+            <div class = "form_group">
+                <label for = "guestName"> Full Name </label>
+                <input type = "text" id = "guestName" placeholder = "e.g. Jane Smith" required>
+            </div>
+
+            <div class = "form_row">
+                <div class = "form_group">
+                    <label for = "checkIn"> Check-In Date </label>
+                    <input type = "date" id = "checkIn" required>
+                </div>
+                <div class = "form_group">
+                    <label for = "checkOut"> Check-Out Date </label>
+                    <input type = "date" id = "checkOut" required> 
+                </div>
+            </div>
+                <div class = "form_group">
+                    <label for = "roomType"> Room Type </label>
+                    <select id = "roomType" required>   
+                        <option value = "" disabled selected> Select a Room </option>
+                        {% for rooms in rooms %}
+                        <option value = "{{ room.name }} - {{ room.type | capitalize }} · ${{ room.price }}/night · (${{ room.size}}/night)">
+                            {{ room.name }} - {{ room.type | capitalize }} · ${{ room.price }}/night · {{ room.size }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div id = "formError" class = "form_error" style = "display: none;"></div>
+
+                <div class = form_actions">
+                    <a href = "/" class = "btn_ghost"> ← Back </a>
+                    <button type = "submit" class = "btn_primary"> Confirm Reservation →</button>
+                </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('checkIn').min = today;
+    document.getElementById('checkOut').min = today;
+    document.getElementById('checkIn').addEventListener('change', function() {
+        document.getElementById('checkOut').min = this.value;
+    });
+
+    async function submitReservation(e) {
+        e.preventDefault();
+        const name = document.getElementById('guestName').value.trim();
+        const checkIn = document.getElementById('checkIn').value;
+        const checkOut = document.getElementById('checkOut').value;
+        const roomType = document.getElementById('roomType').value;
+        const errEl = document.getElementById('formError');
+
+        if (new Date(checkOut) <= new Date (checkIn)) {
+            errEl.textContent = 'Check-out must be after check-in.';
+            errEl.style.display = 'block';
+            return;
+        }
+        errEl.style.display = 'none';
+
+        const res = await fetch('/api/reverse', {
+            method: 'POST',
+            headers: { 'Content_Type': 'application/json' },
+            body: JSON.stringify({ guest_name: name, check_in: checkIn, check_out: checkOut, room_type: roomType })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            window.location.href = `/confirmation/${data.id}`;
+        } else {
+            errEl.textContent = data.error || 'Something went wrong.';
+            errEl.style.display = 'block';
+        }
+    }
+</script>
+{% endblock %}

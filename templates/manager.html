@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Manager — Panther Hotel{% endblock %}
+
+{% block content %}
+<section class = "page_hero">
+    <div class = "welcome_bg">
+        <div class = "hero_orb hero_orb_1"></div>
+        <div class = "hero_grid"></div>
+    </div>
+    <div class = "page_hero_content">
+        <span class = "welcome_eyebrow"> Staff Portal </span>
+        <h1 class = "page_title"> Reservation List </h1>
+    </div>
+</section>
+
+<section class = "manager_section">
+    <div class = "manager_inner">
+        <div class = "manager_header">
+                <span class = "mstat_num"> - </span>
+                <span class = "mstat_label"> Total Reservations </span>
+            </div>
+            <a href = "/reservation" class = "btn_primary"> + New Reservation </a>
+        </div>
+
+        <div id = "reservationList">
+            <div class = "manager_loading">
+                <div class = "spinner"></div>
+                <p> Loading Reservation... </p>
+            </div>
+        </div>
+    </div>
+</section>
