@@ -1,0 +1,24 @@
+Project Structure
+
+panther_hotel/
+    app.py
+Flask backend & API routes
+    requirements.txt
+    templates/
+        base.html
+Shared layout (nav and footer)
+    index.html
+/ landing page
+    rooms.html
+Room listings & booking page
+    static/
+        css/main.css
+styles
+    js/main.js
+
+Setup and run
+1.    pip install -r requirements.txt
+2.  run the dev server
+        python app.py
+3. Open in browser
+    https://localhost:5000

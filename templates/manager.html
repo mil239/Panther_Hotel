@@ -2,31 +2,85 @@
 {% block title %}Manager — Panther Hotel{% endblock %}
 
 {% block content %}
-<section class = "page_hero">
-    <div class = "welcome_bg">
-        <div class = "hero_orb hero_orb_1"></div>
-        <div class = "hero_grid"></div>
+<section class="page-hero">
+    <div class="welcome-bg">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-grid"></div>
     </div>
-    <div class = "page_hero_content">
-        <span class = "welcome_eyebrow"> Staff Portal </span>
-        <h1 class = "page_title"> Reservation List </h1>
+    <div class="page-hero-content">
+        <span class="welcome-eyebrow">Staff Portal</span>
+        <h1 class="page-title">Reservation List</h1>
     </div>
 </section>
 
-<section class = "manager_section">
-    <div class = "manager_inner">
-        <div class = "manager_header">
-                <span class = "mstat_num"> - </span>
-                <span class = "mstat_label"> Total Reservations </span>
+<section class="manager-section">
+    <div class="manager-inner">
+        <div class="manager-header">
+            <div class="manager-stat" id="totalCount">
+                <span class="mstat-num">—</span>
+                <span class="mstat-label">Total Reservations</span>
             </div>
-            <a href = "/reservation" class = "btn_primary"> + New Reservation </a>
+            <a href="/reservation" class="btn-primary">+ New Reservation</a>
         </div>
 
-        <div id = "reservationList">
-            <div class = "manager_loading">
-                <div class = "spinner"></div>
-                <p> Loading Reservation... </p>
+        <div id="reservationList">
+            <div class="manager-loading">
+                <div class="spinner"></div>
+                <p>Loading reservations...</p>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function loadReservations() {
+    const res = await fetch('/api/reservations');
+    const data = await res.json();
+    const container = document.getElementById('reservationList');
+    const countEl = document.querySelector('.mstat-num');
+    countEl.textContent = data.length;
+
+    if (data.length === 0) {
+        container.innerHTML = `
+            <div class="manager-empty">
+                <span>◆</span>
+                <p>No reservations yet.</p>
+                <a href="/reservation" class="btn-ghost">Make the first one</a>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = `
+        <table class="res-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Guest Name</th>
+                    <th>Room Type</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Nights</th>
+                    <th>Booked</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${data.map(b => `
+                    <tr>
+                        <td class="res-id">${b.id}</td>
+                        <td class="res-name">${b.guest_name}</td>
+                        <td class="res-room">${b.room_type}</td>
+                        <td class="res-date">${b.check_in}</td>
+                        <td class="res-date">${b.check_out}</td>
+                        <td>${b.nights}</td>
+                        <td class="res-created">${new Date(b.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>`;
+}
+
+loadReservations();
+</script>
+{% endblock %}

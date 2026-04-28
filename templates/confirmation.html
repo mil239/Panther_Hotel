@@ -1,52 +1,52 @@
-{% entends "base.html" %}
-{% block title %} Reservation Confirmed — Panther Hotel {% endblock %}
+{% extends "base.html" %}
+{% block title %}Reservation Confirmed — Panther Hotel{% endblock %}
 
 {% block content %}
-
-<section class = "page_hero">
-    <div class = "welcome_bg">
-        <div class = "hero_orb hero_orb_1"></div>
-        <div class = "hero_grid"></div> 
+<section class="page-hero">
+    <div class="welcome-bg">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-grid"></div>
     </div>
-    <div class = "page_hero_content">
-        <span class = "welcome_eyebrow"> Reservation #{{ booking.id }}</span>
-        <h1 class = "page_title"> Confirmed </h1>
+    <div class="page-hero-content">
+        <span class="welcome-eyebrow">Reservation #{{ booking.id }}</span>
+        <h1 class="page-title">Confirmed</h1>
     </div>
 </section>
 
-<section class = "confirmation_section">
-    <div class = "confirm_card">
-        <div class = "confirm_icon"> ◆ </div>
-        <h2 clas = "confirm_heading"> Dear {{ booking.guest_name }}, </h2>
-        <p class = "confirm_message">
-            Thank you for choosing the Panther Hotel. We look foward to welcoming you.
-            Your reservation details are confimed below.
+<section class="confirmation-section">
+    <div class="confirm-card">
+        <div class="confirm-icon">◆</div>
+        <h2 class="confirm-heading">Dear {{ booking.guest_name }},</h2>
+        <p class="confirm-message">
+            Thank you for choosing the Panther Hotel. We look forward to welcoming you.
+            Your reservation details are confirmed below.
         </p>
-        <div class = "confirm_details">
-            <div class = "confirm_row">
-                <span class = "confirm_label"> Room </span>
-                <span class = "confirm_value"> {{ booking.roomType }} </span>
+        <div class="confirm-details">
+            <div class="confirm-row">
+                <span class="confirm-label">Room</span>
+                <span class="confirm-value">{{ booking.room_type }}</span>
             </div>
-            <div class = "confirm_row">
-                <span class = "confirm_label"> Check-In Date </span>
-                <span class = "confirm_value confirm_date"> {{ booking.check_in }} </span>
+            <div class="confirm-row">
+                <span class="confirm-label">Check-In Date</span>
+                <span class="confirm-value confirm-date">{{ booking.check_in }}</span>
             </div>
-            <div class = "confirm_row">
-                <span class = "confirm_label"> Check-Out Date </span>
-                <span class = "confirm_value confirm_date"> {{ booking.check_out }} </span>
+            <div class="confirm-row">
+                <span class="confirm-label">Check-Out Date</span>
+                <span class="confirm-value confirm-date">{{ booking.check_out }}</span>
             </div>
-            <div class = "confirm_row">
-                <span class = "confirm_label"> Duration </span>
-                <span class = "confirm_value"> {{ booking.nights }} night{% if booking.nights != 1 %}s{% endif %}</span>
+            <div class="confirm-row">
+                <span class="confirm-label">Duration</span>
+                <span class="confirm-value">{{ booking.nights }} night{% if booking.nights != 1 %}s{% endif %}</span>
             </div>
         </div>
-            <p class = "confirm_footer_note">
-                A confirmation has been noted under booking reference <strong> #{{ booking.id }} </strong>. <br>
-                We will be ready for you upon arrival.
-            </p>
-            <div class = "confirm_actions">
-                <a href = "/reservation" class = "btn_primary"> Make Another Reservation </a>
-                <a href = "/" class = "btn_ghost"> Return Home </a>
-            </div>
+        <p class="confirm-footer-note">
+            A confirmation has been noted under booking reference <strong>#{{ booking.id }}</strong>.<br>
+            We will be ready for you upon arrival.
+        </p>
+        <div class="confirm-actions">
+            <a href="/reservation" class="btn-primary">Make Another Reservation</a>
+            <a href="/" class="btn-ghost">Return Home</a>
+        </div>
     </div>
 </section>
+{% endblock %}
